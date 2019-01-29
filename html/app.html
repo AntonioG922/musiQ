@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="icon" href="../images/logo-bars-color.png" type="image/x-icon" />
+
+    <title>musiQ</title>
+
+    <!-- Fonts -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+
+    <!-- Firebase Database -->
+    <script src="https://www.gstatic.com/firebasejs/5.7.2/firebase.js"></script>
+
+    <!-- Lodash & Vue -->
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.11/lodash.min.js" integrity="sha256-7/yoZS3548fXSRXqc/xYzjsmuW3sFKzuvOCHd06Pmps=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+    <!-- jQuery UI 
+    <script src="../js/jquery-ui.min.js" type="text/javascript"></script>
+    <script src="../js/jquery.ui.touch-punch.min.js"></script>
+    -->
+
+    <!-- Custom css & js -->
+    <link href="../css/main.css" rel="stylesheet">
+    <script src="../js/app.js" type="text/javascript"></script>
+
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+</head>
+
+<body>
+    <div is="loader"></div>
+    <div id="sidebar" class="vh-100 vw-100 text-center py-5">
+        <div id="logo" class="mb-5">
+            <img src="../images/logo-full-color.png" alt="musiQ Logo" width="200"/>
+        </div>
+        <div id="profile-photo">
+            <img src="https://media.istockphoto.com/vectors/male-user-avatar-of-startup-founder-icon-of-cute-boy-face-flat-filled-vector-id1015962922" alt="Profile Photo" height="150" width="150" class="rounded-circle shadow mb-5" />
+        </div>
+        <button class="btn btn-light shadow w-75 position-relative mb-4"><i class="fas fa-user fa-lg main-text-color align-left"></i> Admin</button>
+        <button class="btn btn-light shadow w-75 position-relative mb-4"><i class="fas fa-cog fa-lg main-text-color align-left"></i> Settings</button>
+        <button class="btn btn-light shadow w-75 position-relative mb-4"><i class="fab fa-spotify fa-lg main-text-color align-left"></i> Spotify</button>
+        <button class="btn btn-light shadow w-75 position-relative mb-4" id="exit-btn"><i class="fas fa-sign-out-alt fa-lg main-text-color align-left"></i> Exit</button>
+        <button class="btn btn-light shadow back-arrow" id="close-sidebar-btn"><i class="fas fa-arrow-circle-left"></i>&nbsp;&nbsp;&nbsp;Close</button>
+    </div>
+    <div id="nav-bars">
+        <div class="bar bar1"></div>
+        <div class="bar bar2"></div>
+        <div class="bar bar3"><i class="fab fa-spotify fa-lg main-text-color align-left"></i></div>
+        <div class="bar bar4"></div>
+    </div>
+    <div id="add-song-list">
+        <button class="btn rounded shadow"><i class="fab fa-spotify fa-lg"></i>&nbsp;&nbsp;&nbsp;Spotify</button>
+        <button class="btn rounded shadow"><img src="../images/youtube-logo.png" width="200"></button>
+    </div>
+    <div id="app" class="app-container">
+        <div id="player" class="text-light">
+            <button id="add-song-btn" class="btn rounded shadow"><i class="fas fa-plus fa-lg main-text-color align-left"></i>Add Song</button>
+            <div class="bg-album"><img v-bind:src=currentImage /></div>
+            <div id="current-song-details">
+                <img id="current-album" class="mb-2" v-bind:src=currentImage alt="Current Album"/>
+                <div id="current-title d-">{{ currentTitle }}</div>
+                <div id="current-artist">{{ currentArtist }}</div>
+            </div>
+            <div id="audio-player">
+                <div class="progress" style="height: 1px; margin-bottom: -5px;">
+                    <div class="progress-bar bg-white" role="progressbar" style="width: 100%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+                <div class="progress" style="height: 10px;">
+                    <div class="progress-bar bg-white" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+            </div>
+        </div>
+        <!-- Playlists -->
+        <div id="queue" class="collapsible-table active secondary-bg-color">
+            <table class="table table-sm text-muted mt-3" style="table-layout: fixed;">
+                <thead class="d-none d-md-block">
+                    <tr>
+                        <td></td> <!-- Votes -->
+                        <td>Title</td>
+                        <td></td> <!-- Album Artwork -->
+                        <td><i class="far fa-clock fa-lg"></i></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="song in toPlay"  class="px-4">
+                        <td class="w-25 text-center">
+                            <div class="d-flex justify-content-around">
+                                <i v-on:click="addVote(1, song.songId)" class="fas fa-caret-up fa-lg text-success"></i>
+                                {{ song.Votes }}
+                                <i v-on:click="addVote(-1, song.songId)" class="fas fa-caret-down fa-lg text-danger"></i>
+                            </div>
+                        </td>
+                        <td class="text-right w-50">
+                            <div class="text-truncate font-weight-bold">{{ song.Name }} - {{ song.Artist }}</div>
+                            <div class="text-truncate"><div v-if="song.Explicit === 'true'" class="explicit d-inline"></div>2014 Forest Hills Drive</div>
+                        </td>
+                        <td class="text-center"><img v-bind:src=song.Picture alt="Album artwork" height="50" class="song-img"/></td>
+                        <td class="d-none d-md-block">3:59</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">
+                            <button id="showQueueBtn" class="btn text-muted p-3 w-100"><i class="fas fa-caret-up fa-lg main-text-color"></i> Previously Played</button>
+                        </td>
+                    </tr>
+                    <tr v-for="song in prevPlayed"  class="px-4">
+                        <td class="w-25 text-center">
+                            <div class="d-flex justify-content-around">
+                                <i class="fas fa-caret-up fa-lg text-success up-vote-btn"></i>
+                                {{ song.Votes }}
+                                <i class="fas fa-caret-down fa-lg text-danger down-vote-btn"></i>
+                            </div>
+                        </td>
+                        <td class="text-right w-50">
+                            <div class="text-truncate font-weight-bold">{{ song.Name }} - {{ song.Artist }}</div>
+                            <div class="text-truncate">2014 Forest Hills Drive</div>
+                        </td>
+                        <td class="text-center"><img v-bind:src=song.Picture alt="Album artwork" height="50"/></td>
+                        <td class="d-none d-md-block">3:59</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <button id="err-btn" class="btn rounded shadow"></button>
+    </div>
+</body>
+
+</html>
