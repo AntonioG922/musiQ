@@ -44,13 +44,11 @@ a {
 
 /* Playlists Page */
 .playlist {
-    border: 1px solid var(--secondary-color);
-    background-color: var(--secondary-color);
-    color: #666666;
-    border-radius: 0px;
+    color: var(--main-color);
+    font-weight: bold;
     width: 80%;
     transition: .25s all;
-    line-height: 32px;
+    line-height: 40px;
     margin-left: auto;
     margin-right: auto;
 }
@@ -77,6 +75,26 @@ a {
     width: 60%;
     max-width: 300px;
     margin: auto;
+}
+
+#search {
+    border: none;
+    border-bottom: 1px solid var(--main-color);
+    font-weight: bold;
+    color: #bebebe;
+    width: 150px;
+    -webkit-transition: all 0.7s ease 0s;
+    -moz-transition: all 0.7s ease 0s;
+    -o-transition: all 0.7s ease 0s;
+    transition: all 0.7s ease 0s;
+}
+
+#search::placeholder {
+    color: #bebebe;
+}
+
+#search:focus {
+    width: 200px;
 }
 
 @keyframes ellipsis {
