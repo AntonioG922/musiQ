@@ -1,8 +1,15 @@
+html {
+  height: 100%;
+  overflow: hidden;
+}
+
 body {
     --main-color: #F2A359;
     --secondary-color: #ffffff;
     font-size: .8em;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    height: 100%;
+    overflow: hidden;
 }
 
 .main-bg-color {
