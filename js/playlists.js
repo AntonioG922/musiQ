@@ -1,6 +1,4 @@
 $(document).ready(function() {
-    $('body > div').css('height', window.innerHeight + 'px');
-
     // Initialize Vue and our data
     var app = new Vue({
         el: '#app',
@@ -12,7 +10,7 @@ $(document).ready(function() {
           sortedPlaylists() {
               var searchList = [];
               for(playlist in this.playlists) {
-                  if(this.playlists[playlist].name.toLowerCase().includes(this.search)) searchList.push(this.playlists[playlist]);
+                  if(this.playlists[playlist].name.toLowerCase().includes(this.search.toLowerCase())) searchList.push(this.playlists[playlist]);
               }
               return _.orderBy(searchList, ['distance'],['asc']);
           }
@@ -66,7 +64,7 @@ async function getPlaylists() {
         }
 
         var status = document.getElementById('status-text');
-        status.innerText = 'Select a playlist to join...';
+        status.innerText = '';
         status.classList.remove('loading');
     });
 }
