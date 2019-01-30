@@ -286,10 +286,9 @@ table > tbody > tr > td {
 }
 
 #nav-bars {
-    display: block;
-    position: fixed;
+    position: absolute;
     top: 2em;
-    right: calc(100% - 2em - 50px);
+    left: 2em;
     z-index: 1;
     cursor: pointer;
 }

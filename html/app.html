@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
 
     <link rel="icon" href="../images/logo-bars-color.png" type="image/x-icon" />
 
@@ -38,7 +39,7 @@
 
 <body>
     <div id="loader"></div>
-    <div id="sidebar" class="vh-100 text-center">
+    <div id="sidebar" class="h-100 text-center">
         <div id="logo" class="py-5 secondary-bg-color">
             <img src="../images/logo-full-color.png" alt="musiQ Logo" width="200"/>
         </div>
@@ -49,18 +50,18 @@
         <button class="btn btn-light shadow back-arrow" id="close-sidebar-btn"><i class="fas fa-arrow-circle-left"></i>&nbsp;&nbsp;&nbsp;Close</button>
         <div class="sidebar-footer"></div>
     </div>
-    <div id="nav-bars">
-        <div class="bar bar1"></div>
-        <div class="bar bar2"></div>
-        <div class="bar bar3"><i class="fab fa-spotify fa-lg main-text-color align-left"></i></div>
-        <div class="bar bar4"></div>
-    </div>
     <div id="add-song-list">
         <button class="btn rounded shadow"><i class="fab fa-spotify fa-lg"></i>&nbsp;&nbsp;&nbsp;Spotify</button>
         <button class="btn rounded shadow"><img src="../images/youtube-logo.png" width="200"></button>
     </div>
     <div id="app" class="app-container">
         <div id="player" class="text-light">
+            <div id="nav-bars">
+                <div class="bar bar1"></div>
+                <div class="bar bar2"></div>
+                <div class="bar bar3"><i class="fab fa-spotify fa-lg main-text-color align-left"></i></div>
+                <div class="bar bar4"></div>
+            </div>
             <button id="add-song-btn" class="btn rounded shadow"><i class="fas fa-plus fa-lg main-text-color align-left"></i>Add Song</button>
             <div class="bg-album"><img v-bind:src=currentImage /></div>
             <div id="current-song-details">
