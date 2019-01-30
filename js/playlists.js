@@ -16,6 +16,11 @@ $(document).ready(function() {
               }
               return _.orderBy(searchList, ['distance'],['asc']);
           }
+        },
+        methods: {
+            showPlaylist: function (playlist) {
+                window.location.href = 'app.html?playlist=' + playlist;
+            }
         }
     });
     window.vue = app;
@@ -36,6 +41,10 @@ $(document).ready(function() {
     getPlaylists();
 
 });
+
+function showPlaylist(playlist) {
+    window.location.href = 'app.html?playlist=' + playlist;
+}
 
 /**
  * Gets all the playlists within range of the user
