@@ -1,4 +1,6 @@
 $(document).ready(function() {
+    $('body > div').css('height', window.innerHeight + 'px');
+    
     var config = {
         apiKey: "AIzaSyBoYhaLK3TtsuN9v0ZxwBS6ozo4PeDbbKU",
         authDomain: "misc-e4aa1.firebaseapp.com",
@@ -13,6 +15,7 @@ $(document).ready(function() {
     var database = firebase.database();
 
     getPlaylists();
+
 });
 
 async function getPlaylists() {

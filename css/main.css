@@ -220,6 +220,7 @@ body {
 
 .collapsible-table {
     overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
 }
 
 .collapsible-table::-webkit-scrollbar { 
