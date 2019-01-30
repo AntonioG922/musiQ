@@ -1,4 +1,5 @@
 $(document).ready(function() {
+    $('#app').css('height', window.innerHeight + 'px');
     const urlParams = new URLSearchParams(window.location.search);
     const playlist = urlParams.get('playlist');
     var activeRow;
@@ -73,7 +74,7 @@ $(document).ready(function() {
     });
     
     $('#nav-bars').click(function() {
-        $('#nav-bars').addClass('active');
+        $('#sidebar').css('left', '0');
     });
     
     $('#exit-btn').click(function() {

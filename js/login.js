@@ -23,11 +23,8 @@ var uiConfig = {
     // tosUrl and privacyPolicyUrl accept either url string or a callback
     // function.
     // Terms of service url/callback.
-    tosUrl: '<your-tos-url>',
-    // Privacy policy url/callback.
-    privacyPolicyUrl: function() {
-      window.location.assign('<your-privacy-policy-url>');
-    }
+    tosUrl: 'tos.html',
+    privacyPolicyUrl: 'pp.html'
 };
 
 // Initialize the FirebaseUI Widget using Firebase.

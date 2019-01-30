@@ -12,6 +12,11 @@ body {
     overflow: hidden;
 }
 
+a {
+    text-decoration: none;
+    color: var(--main-color);
+}
+
 .main-bg-color {
     background-color: var(--main-color);
 }
@@ -104,7 +109,7 @@ body {
 }
 
 #sidebar {
-    background-color: var(--secondary-color);
+    background-color: var(--main-color);
     color: var(--main-color);
     position: fixed;
     left: -110%;
@@ -263,7 +268,7 @@ table > tbody > tr > td {
     display: block;
     position: fixed;
     top: 2em;
-    left: 2em;
+    right: calc(100% - 2em - 50px);
     z-index: 1;
     cursor: pointer;
 }
@@ -273,6 +278,7 @@ table > tbody > tr > td {
     border-radius: 3px;
     margin-bottom: 3px;
     transition: all .5s;
+    height: 10px;
 }
 
 
@@ -291,22 +297,18 @@ table > tbody > tr > td {
 
 .bar1 {
     width: 40px;
-    height: 10px;
 }
 
 .bar2 {
     width: 50px;
-    height: 10px;
 }
 
 .bar3 {
     width: 20px;
-    height: 10px;
 }
 
 .bar4 {
     width: 30px;
-    height: 10px;
 }
 
 #add-song-btn {
