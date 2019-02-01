@@ -74,15 +74,7 @@ $(document).ready(function() {
     });
     
     $('#nav-bars').click(function() {
-        $('#sidebar').css('left', '0');
-    });
-    
-    $('#exit-btn').click(function() {
-        window.location = "playlists.html"
-    });
-    
-    $('#close-sidebar-btn').click(function() {
-        $('#sidebar').css('left', '-110%');
+        window.location = "playlists.html";
     });
     
     $('#add-song-btn').click(function() {
@@ -146,16 +138,15 @@ $(document).ready(function() {
     }); */
 });
 
-/*
- * Votes are treated as integers:
- *      Up: 1
- *      Down: -1
+/**
+ * @param {int} newVote - 1 for up vote, -1 for down vote
+ * @param {string} songId - id of the song which was voted on
  */
 async function addVote(newVote, songId) {
     // Read users current vote if it exists
-    getUsersCurrentVote(newVote, songId).then(function(voteTotal) {
+    getUsersCurrentVote(newVote, songId).then(function(voteChange) {
         // Update vote count for the given song in the playlist
-        updateVoteCountForSong(voteTotal, songId);
+        updateVoteCountForSong(voteChange, songId);
 
         // Record or update users vote
         updateUsersVote(newVote, songId);
@@ -167,6 +158,11 @@ async function addVote(newVote, songId) {
 
 }
 
+/**
+ * 
+ * @param {int} newVote - 1 for up vote, -1 for down vote
+ * @param {string} songId - id of the song which was voted on
+ */
 function getUsersCurrentVote(newVote, songId) {
     var userId = firebase.auth().currentUser.uid;
     return new Promise(function(resolve, reject) {
@@ -186,6 +182,11 @@ function getUsersCurrentVote(newVote, songId) {
     });
 }
 
+/**
+ * Updates the users vote to newVote
+ * @param {int} newVote - 1 for up vote, -1 for down vote
+ * @param {string} songId - id of the song which was voted on
+ */
 function updateUsersVote(newVote, songId) {
     var userId = firebase.auth().currentUser.uid;
     var postData = {};
@@ -194,7 +195,12 @@ function updateUsersVote(newVote, songId) {
     return firebase.database().ref('/Votes/Playlists/' + vue.playlist + '/' + userId).update(postData);
 }
 
-function updateVoteCountForSong(voteTotal, songId) {
+/**
+ * Updates vote count for song with songId
+ * @param {int} voteChange - -+2 if vote changed or -+1 if new vote
+ * @param {string} songId - id of the song which was voted on 
+ */
+function updateVoteCountForSong(voteChange, songId) {
     firebase.database().ref('/Playlists/' + vue.playlist + '/Queue/' + songId + '/Votes').transaction(function(currentVotes) {
         return voteTotal + parseInt(currentVotes);
     });
@@ -221,6 +227,9 @@ function getVotesMap(playlist) {
     });
 }
 
+/**
+ * Gets meta data for playlist
+ */
 async function getPlaylistInfo() {
     var playlistInfo = await queryDbOnce('/Playlists/' + vue.playlist);
     var info = playlistInfo.val();
@@ -230,6 +239,10 @@ async function getPlaylistInfo() {
     vue.allowYoutube = info.Settings.Youtube;
 }
 
+/**
+ * Populates the song queue with all the songs in the given playlist
+ * @param {string} playlist - name of the playlist
+ */
 function populateQueue(playlist) {
     // Populate song queue and attach listener for new songs that are added
     firebase.database().ref('/Playlists/' + playlist + '/Queue').on('child_added', function(song) {

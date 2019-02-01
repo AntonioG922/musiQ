@@ -129,26 +129,6 @@ a {
     transform: translateY(-50%);
 }
 
-#sidebar {
-    background-color: var(--main-color);
-    color: var(--main-color);
-    position: fixed;
-    left: -110%;
-    transition: .5s all;
-    z-index: 10000;
-}
-
-.back-arrow {
-    position: absolute;
-    bottom: 30px;
-    right: 30px;
-    background-color: var(--main-color);
-    color: var(--secondary-color);
-    font-size: 1.5em;
-    border-radius: 10em;
-    border: none;
-}
-
 .app-container {
     width: 100vw;
     height: 100vh;
