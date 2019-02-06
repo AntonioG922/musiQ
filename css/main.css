@@ -163,6 +163,7 @@ a {
     line-height: 26px;
     height: 50vw;
     max-height: 40%!important;
+    z-index: 100;
 }
 
 #current-song-details img {
