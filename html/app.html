@@ -39,7 +39,18 @@
 
 <body>
     <div id="loader"></div>
-    <div id="add-song-list">
+    <div class="cube-btn-container">
+        <div class="cube-btn">
+            <div id="add-song-btn" class="front">
+                <i class="fas fa-plus fa-2x"></i>
+            </div>
+            <div class="bottom">
+                <i class="spotify fab fa-spotify fa-2x"></i>
+                <i class="youtube fab fa-youtube fa-2x"></i>
+            </div>
+        </div>
+    </div>
+     <div id="add-song-list">
         <button class="btn rounded shadow"><i class="fab fa-spotify fa-lg"></i>&nbsp;&nbsp;&nbsp;Spotify</button>
         <button class="btn rounded shadow"><img src="../images/youtube-logo.png" width="200"></button>
     </div>
@@ -51,23 +62,17 @@
                 <div class="bar bar3"><i class="fab fa-spotify fa-lg main-text-color align-left"></i></div>
                 <div class="bar bar4"></div>
             </div>
-            <button id="add-song-btn" class="btn rounded shadow"><i class="fas fa-plus fa-lg main-text-color align-left"></i>Add Song</button>
             <div class="bg-album"><img v-bind:src=currentImage /></div>
             <div id="current-song-details">
-                <div class="d-inline-block">
-                    <div class="d-flex flex-column justify-content-end">
-                        <div id="current-title">{{ currentTitle }}</div>
-                        <div id="current-artist">{{ currentArtist }}</div>
-                    </div>
+                <img id="current-album" class="float-left mr-2" v-bind:src=currentImage alt="Current Album"/>
+                <div class="d-flex flex-column float-left">
+                    <h5 id="current-title" class="mb-0">{{ currentTitle }}</h5>
+                    <div id="current-artist">{{ currentArtist }} <i class="fas fa-angle-right"></i></div>
+                    <div class="faded">Alternative - 2017</div>
                 </div>
-                <img id="current-album" class="mb-2" v-bind:src=currentImage alt="Current Album"/>
-            </div>
-            <div id="audio-player">
-                <div class="progress" style="height: 1px; margin-bottom: -5px;">
-                    <div class="progress-bar bg-white" role="progressbar" style="width: 100%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                </div>
-                <div class="progress" style="height: 10px;">
-                    <div class="progress-bar bg-white" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                <div class="float-right mt-3 mr-3">
+                    <i class="far fa-thumbs-up fa-2x"></i>&nbsp;&nbsp;&nbsp;
+                    <i class="far fa-thumbs-down fa-2x"></i>
                 </div>
             </div>
         </div>

@@ -1,5 +1,7 @@
 $(document).ready(function() {
+    window.scrollTo(0,1);
     $('#app').css('height', window.innerHeight + 'px');
+    
     const urlParams = new URLSearchParams(window.location.search);
     const playlist = urlParams.get('playlist');
     var activeRow;
@@ -9,7 +11,8 @@ $(document).ready(function() {
         el: '#app',
         data: {
           playlist: playlist,
-          /** songQueue would be better as an object but I couldn't get it to wokr with Vue right as one
+          /** 
+           * songQueue would be better as an object but I couldn't get it to work with Vue right as one
            * Structure: 
            *    songQueue {
            *        songId: songObject
@@ -77,8 +80,8 @@ $(document).ready(function() {
         window.location = "playlists.html";
     });
     
-    $('#add-song-btn').click(function() {
-        $('#add-song-list').addClass('active');
+    $('.cube-btn').click(function() {
+        $('.cube-btn').toggleClass('active');
     });
 
     /*
@@ -202,7 +205,7 @@ function updateUsersVote(newVote, songId) {
  */
 function updateVoteCountForSong(voteChange, songId) {
     firebase.database().ref('/Playlists/' + vue.playlist + '/Queue/' + songId + '/Votes').transaction(function(currentVotes) {
-        return voteTotal + parseInt(currentVotes);
+        return voteChange + parseInt(currentVotes);
     });
 }
 

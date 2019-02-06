@@ -1,5 +1,5 @@
 html {
-  height: 100%;
+  height: calc(100% + 1px);
   overflow: hidden;
 }
 
@@ -8,7 +8,7 @@ body {
     --secondary-color: #ffffff;
     font-size: .8em;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    height: 100%;
+    height: calc(100% + 1px);
     overflow: hidden;
 }
 
@@ -161,9 +161,8 @@ a {
 #player {
     position: relative;
     line-height: 26px;
-    height: 60vw;
+    height: 50vw;
     max-height: 40%!important;
-    min-height: 240px;
 }
 
 #current-song-details img {
@@ -173,8 +172,7 @@ a {
 .bg-album {
     position: absolute;
     width: 100vw;
-    height: 60vw;
-    min-height: 240px;
+    height: 50vw;
     overflow: hidden;
     z-index: -1;
 }
@@ -184,52 +182,29 @@ a {
     filter: blur(12px);
     width: 100%;
     position: relative;
-    top: -25%;
+    top: -40%;
     transform: scale(1.1); /* Get rid of white edges on blur */
 }
 
 #current-song-details {
-    padding-top: 2em;
-    padding-right: 2em;
-    position: relative;
-    text-align: right;
+    position: absolute;
+    bottom: -20px;
+    left: 10%;
     line-height: 1.25em;
 }
 
-#audio-player {
-    position: absolute;
-    bottom: 40px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 70%;
+#current-artist:hover i {
+    transition: .25s all;
+    margin-left: 0px;
 }
 
-#audio-player::before {
-    content: '0:00';
-    font-size: 12px;
-    position: absolute;
-    left: 0px;
-    top: -30px;
-    transform: translateX(-50%);
+#current-artist:hover i {
+    margin-left: .5em;
 }
 
-#audio-player::after {
-    content: '4:20';
-    font-size: 12px;
-    position: absolute;
-    right: 0px;
-    top: -30px;
-    transform: translateX(50%);
+.faded {
+    opacity: .5;
 }
-
-#audio-player > * {
-    z-index: 10;
-}
-
-.progress {
-    background: none;
-}
-
 
 .collapsible-table {
     overflow-y: scroll;
@@ -311,14 +286,105 @@ table > tbody > tr > td {
     width: 30px;
 }
 
-#add-song-btn {
+#add-song-btn.active {
+    padding: 50px;
+}
+
+#add-song-btn.active i {
+    transform: rotate(135deg);
+}
+
+
+/* 3d btn styles */
+.cube-btn .front, .back {
+    background: var(--main-color);
+}
+
+.cube-btn .bottom .spotify {
+    height: 100%;
+    background: darken(#1DB954, 10%);
+}
+
+.cube-btn .bottom .youtube {
+    height: 100%;
+    background: darken(#FF0000, 10%);
+}
+
+.cube-btn.active .bottom .spotify {
+    background: #1DB954;
+}
+
+.cube-btn.active .bottom .youtube {
+    background: #FF0000;
+}
+
+.front {
+    background: lighten(var(--main-color), 10%);
+}
+
+.cube-btn-container {
+  position: absolute;
+  bottom: 0px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: inline-block;
+  width: 100%;
+  height: 36px;
+  perspective: 300px;
+  font-size: 1em;
+  color: var(--secondary-color) !important;
+  cursor: pointer;
+}
+
+.cube-btn {
     position: absolute;
-    bottom: 0;
-    left: 50%;
-    width: 50%;
-    z-index: 100;
-    font-size: 1em;
-    transform: translate(-50%, 50%);
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    transition: all 0.333s;
+    transform: translateZ(-18px);
+}
+
+.cube-btn .front, .cube-btn .bottom {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background 0.333s;
+}
+
+.cube-btn .front *, .cube-btn .bottom * {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1 1 auto!important;
+}
+
+
+.cube-btn .front {
+    transform: rotateX(0deg) translateZ(18px);
+}
+
+.cube-btn .bottom {
+    transform: rotateX(-90deg) translateZ(18px);
+}
+  
+.cube-btn.active {
+    transform: translateZ(-18px) rotateX(90deg);
+}
+
+.spotify {
+    background: #1DB954;
+}
+
+.youtube {
+    background: #FF0000;
 }
 
 #err-btn {
@@ -338,7 +404,7 @@ table > tbody > tr > td {
 @media screen and (max-width: 768px) {
     #queue {
         min-height: 60%;
-        height: calc(100vh - 60vw);
+        height: calc(100% - 50vw);
     }
 
     #current-song-details > img {
