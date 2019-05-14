@@ -63,13 +63,11 @@ $(document).ready(function() {
     };
     firebase.initializeApp(config);
 
-    // Get a reference to the database service
-    var database = firebase.database();
-
     // Get the data we want to show to the user
-    var votesMap = getVotesMap(playlist);
     getPlaylistInfo().then(function() {
+        checkLoggedIn();
         populateQueue(playlist);
+        getVotesMap(playlist);
     });
     
     $("#showPrevPlayedBtn").click(function() {
@@ -141,6 +139,12 @@ $(document).ready(function() {
     }); */
 });
 
+async function checkLoggedIn() {
+    var userId = firebase.auth().currentUser.uid;
+    if(userId == null)
+        window.location = 'login.html';
+}
+
 /**
  * @param {int} newVote - 1 for up vote, -1 for down vote
  * @param {string} songId - id of the song which was voted on
@@ -152,11 +156,7 @@ async function addVote(newVote, songId) {
         updateVoteCountForSong(voteChange, songId);
 
         // Record or update users vote
-        updateUsersVote(newVote, songId);
-    }, function(message) {
-        $('#err-btn').html(message);
-        $('#err-btn').css('bottom', '30px');
-        setTimeout(function(){$('#err-btn').css('bottom', '-100px');}, 3000);
+        updateUsersVote(voteChange, songId);
     });
 
 }
@@ -176,9 +176,6 @@ function getUsersCurrentVote(newVote, songId) {
             else if(currentVote.val() === 'Down')
                 oldVote = -1;
             
-            if(newVote == oldVote)
-                reject("Chill man, you already voted for this");
-            
             // The user has already not changed their vote so do nothing
             resolve(newVote + (oldVote * -1));
         });
@@ -192,8 +189,24 @@ function getUsersCurrentVote(newVote, songId) {
  */
 function updateUsersVote(newVote, songId) {
     var userId = firebase.auth().currentUser.uid;
-    var postData = {};
-    postData[songId] = newVote === 1 ? 'Up' : 'Down';
+    var postData = {}, voteValue = "";
+    switch(newVote) {
+        case 2:
+        case 1:
+            voteValue = 'Up';
+            break;
+        case 0:
+            voteValue = null;   //Delete users vote
+            break;
+        case -2:
+        case -1:
+            voteValue = 'Down';
+            break;
+        default:
+            voteValue = null;
+            break;
+    }
+    postData[songId] = voteValue;
 
     return firebase.database().ref('/Votes/Playlists/' + vue.playlist + '/' + userId).update(postData);
 }
