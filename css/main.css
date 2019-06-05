@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Lato&display=swap');
+
 html {
   height: calc(100% + 1px);
   overflow: hidden;
@@ -7,7 +9,7 @@ body {
     --main-color: #F2A359;
     --secondary-color: #ffffff;
     font-size: .8em;
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-family: 'Lato','Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Verdana, sans-serif;
     height: calc(100% + 1px);
     overflow: hidden;
 }
@@ -135,27 +137,19 @@ a {
     overflow: hidden;
 }
 
-#add-song-list {
-    position: absolute;
-    background-color: white;
-    top: 50%;
-    left: 50%;
+#add-song-menu {
+    position: fixed;
+    top: 0;
+    left: 100%;
     width: 100%;
     height: 100%;
-    transform: translate(-50%, -50%);
-    text-align: center;
-    opacity: 0;
-    z-index: -1;
+    background: var(--secondary-color);
+    z-index: 100;
     transition: .5s all;
 }
 
-#add-song-list.active {
-    opacity: 1;
-    z-index: 1000;
-}
-
-#add-song-list > button {
-    margin-bottom: 50px;
+#app.adding-song #add-song-menu {
+    left: 0;
 }
 
 #player {
@@ -285,6 +279,14 @@ table > tbody > tr > td {
 
 .bar4 {
     width: 30px;
+}
+
+#add-song-btn {
+    position: absolute;
+    top: 2em;
+    right: 2em;
+    z-index: 1;
+    cursor: pointer;
 }
 
 #add-song-btn.active {

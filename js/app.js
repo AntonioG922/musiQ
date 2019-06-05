@@ -1,10 +1,9 @@
+const urlParams = new URLSearchParams(window.location.search);
+const playlist = urlParams.get('playlist');
+
 $(document).ready(function() {
     window.scrollTo(0,1);
     $('#app').css('height', window.innerHeight + 'px');
-    
-    const urlParams = new URLSearchParams(window.location.search);
-    const playlist = urlParams.get('playlist');
-    var activeRow;
 
     // Initialize Vue and our data
     var app = new Vue({
@@ -77,66 +76,16 @@ $(document).ready(function() {
     $('#nav-bars').click(function() {
         window.location = "playlists.html";
     });
+
+    $('#add-song-btn').click(function() {
+        $('#add-song-menu').css('left', '0');
+    });
     
-    $('.cube-btn').click(function() {
-        $('.cube-btn').toggleClass('active');
+    $("#search").keyup(function(event) {
+        if (event.keyCode === 13) {
+            searchForSong();
+        }
     });
-
-    /*
-    $('table').on('touchmove', 'tr', function(e) {
-        if (!$(this).data('draggable')) $(this).draggable({
-            helper: 'clone',
-            axis: 'x',
-            cursor: "move",
-            start: function (event, ui) {
-            
-            $(this).css('opacity', '0');
-             //   sourceElement = $(this).closest('table').attr('id');
-   
-            },
-            stop: function (e, ui) {
-                if(e.pageX >= $(window).width()/2)
-                    addVote(1, this.dataset.song);
-                else
-                    addVote(-1, this.dataset.song);
-
-                $(this).css('opacity', '1');
-            }
-        });
-    });
-
-    $('body').mousemove(function(e) {
-        // Calculate mouse position relative to the center of the page
-        var relativeMouseX = e.pageX - $(window).width()/2;
-
-        $(activeRow).css('margin-left', relativeMouseX + 'px');
-    });
-
-    $('table').on('mouseenter', 'tr', function(e) {
-        if (!$(this).data('draggable')) $(this).draggable({
-            helper: 'clone',
-            axis: 'x',
-            cursor: "move",
-            start: function (event, ui) {
-            
-            $(this).css('opacity', '0');
-             //   sourceElement = $(this).closest('table').attr('id');
-   
-            },
-            stop: function (e, ui) {
-                if(e.pageX >= $(window).width()/2)
-                    addVote(1, this.dataset.song);
-                else
-                    addVote(-1, this.dataset.song);
-
-                $(this).css('opacity', '1');
-            }
-        });
-    });
-
-    $('body').mouseup(function() {
-        activeRow = null;
-    }); */
 });
 
 async function checkLoggedIn() {
