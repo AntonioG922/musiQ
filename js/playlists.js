@@ -1,3 +1,5 @@
+var allPlaylists = [];
+
 $(document).ready(function() {
     // Initialize Vue and our data
     var app = new Vue({
@@ -9,9 +11,18 @@ $(document).ready(function() {
         computed: {
           sortedPlaylists() {
               var searchList = [];
-              for(playlist in this.playlists) {
-                  if(this.playlists[playlist].name.toLowerCase().includes(this.search.toLowerCase())) searchList.push(this.playlists[playlist]);
+              const userIsSearching = this.search.length > 0;
+              
+              if(userIsSearching) {
+                  for(playlist in allPlaylists) {
+                      if(allPlaylists[playlist].name.toLowerCase().includes(this.search.toLowerCase())) searchList.push(allPlaylists[playlist]);
+                  }
+              } else {
+                  for(playlist in this.playlists) {
+                      if(this.playlists[playlist].name.toLowerCase().includes(this.search.toLowerCase())) searchList.push(this.playlists[playlist]);
+                  }
               }
+              
               return _.orderBy(searchList, ['distance'],['asc']);
           }
         },
@@ -37,7 +48,6 @@ $(document).ready(function() {
     var database = firebase.database();
 
     getPlaylists();
-
 });
 
 function showPlaylist(playlist) {
@@ -54,13 +64,15 @@ async function getPlaylists() {
         locations = locations.val();
         for(var playlist in locations) {
             var dist = getDistance(locations[playlist].l, position.coords);
+            var p = {
+                name: playlist,
+                distance: dist
+            };
+            
             if(dist <= 10) {
-                var p = {
-                    name: playlist,
-                    distance: dist
-                };
                 vue.playlists.push(p);
             }
+            allPlaylists.push(p);
         }
 
         var status = document.getElementById('status-text');
